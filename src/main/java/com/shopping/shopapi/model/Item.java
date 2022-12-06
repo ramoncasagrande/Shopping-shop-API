@@ -1,5 +1,7 @@
 package com.shopping.shopapi.model;
 
+import com.shopping.shopapi.dto.ItemDTO;
+
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -32,4 +34,10 @@ public class Item {
         this.price = price;
     }
 
+    public static Item convert(ItemDTO itemDTO){
+        Item item = new Item();
+        item.setProductIdentifier(itemDTO.getProductIdentifier());
+        item.setPrice(itemDTO.getPrice());
+        return item;
+    }
 }
