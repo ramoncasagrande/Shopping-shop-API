@@ -2,6 +2,9 @@ package com.shopping.shopapi.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.shopping.shopapi.dto.ShopDTO;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
@@ -14,7 +17,7 @@ import jakarta.persistence.JoinColumn;
 
 @Entity(name = "shop")
 public class Shop {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +26,7 @@ public class Shop {
     private Date date;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "item", 
-                    joinColumns = @JoinColumn(name = "shop_id"))
+    @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
     private List<Item> items;
 
     public Shop() {
@@ -76,5 +78,18 @@ public class Shop {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public static Shop cconvert(ShopDTO shopDTO) {
+        Shop shop = new Shop();
+        shop.setUserIdentifier(shopDTO.getUserIdentifier());
+        shop.setTotal(shopDTO.getTotal());
+        shop.setDate(shopDTO.getDate());
+        shop.setItems(shopDTO.getItems()
+                .stream()
+                .map(Item::convert)
+                .collect(Collectors.toList()));
+        return shop;
+
     }
 }

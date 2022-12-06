@@ -3,6 +3,8 @@ package com.shopping.shopapi.dto;
 import java.sql.Date;
 import java.util.List;
 
+import com.shopping.shopapi.model.Shop;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -58,5 +60,12 @@ public class ShopDTO {
 
     public void setItems(List<ItemDTO> items) {
         this.items = items;
+    }
+
+    public static ShopDTO convert(Shop shop){
+        ShopDTO shopDTO = new ShopDTO();
+        shopDTO.setUserIdentifier(shop.getUserIdentifier());
+        shopDTO.setTotal(shop.getTotal());
+        return shopDTO;
     }
 }
