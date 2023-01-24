@@ -33,15 +33,15 @@ public class ShopService {
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());
     }
-/*
+
     public List<ShopDTO> getByDate(ShopDTO shopDTO) {
-        List<Shop> shops = shopRepository.findAllByDateGreaterThanEquals(shopDTO.getDate());
+        List<Shop> shops = shopRepository.findAllByDateGreaterThanEqual(shopDTO.getDate());
         return shops
                 .stream()
                 .map(ShopDTO::convert)
                 .collect(Collectors.toList());
     }
-*/
+
     public ShopDTO findById(Long productId){
         Optional<Shop> shop = shopRepository.findById(productId);
         if (shop.isPresent()){
